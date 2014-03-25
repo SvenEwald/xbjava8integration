@@ -10,6 +10,9 @@ public interface SimpleJava8Projection {
 	@XBRead("/root/somevalue")
 	String getSomeValue();
 
+	@XBRead("''{0}''")
+	int getInt(int i);
+	
 	default boolean validate() {
 		final String value = getSomeValue();
 		return "foo".equals(value);
@@ -21,5 +24,9 @@ public interface SimpleJava8Projection {
 
 	default void throwSomething() throws IOException {
 		throw new IOException();
+	}
+	
+	default int passInt(int i) {		
+		return getInt(i);
 	}
 }

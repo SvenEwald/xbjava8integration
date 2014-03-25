@@ -44,4 +44,9 @@ public class TestJava8Projections {
 		simpleProjection.throwSomething();
 	}
 
+	@Test
+	public void testPassInt() {
+		assertEquals(12,simpleProjection.passInt(12));
+	}
+	
 }
