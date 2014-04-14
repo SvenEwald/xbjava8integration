@@ -8,7 +8,7 @@ import org.xmlbeam.util.intern.ASMHelper;
 public class TestASMHelper {
 	@Test(expected = IOException.class)
 	public void testASMHelper() throws IOException {
-		SimpleJava8Projection proxy = ASMHelper.create(SimpleJava8Projection.class, null);
+		SimpleJava8Projection proxy = ASMHelper.createDefaultMethodProxy(SimpleJava8Projection.class, null);
 		proxy.throwSomething();
 	}
 
