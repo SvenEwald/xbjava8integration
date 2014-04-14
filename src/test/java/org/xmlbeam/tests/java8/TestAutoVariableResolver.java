@@ -46,9 +46,9 @@ public class TestAutoVariableResolver {
 		assertTrue(ReflectionHelper.mayProvideParameterNames());
 		List<String> methodParameterNames = ReflectionHelper
 				.getMethodParameterNames(ReflectionHelper.findMethodByName(
-						Projection.class, "read"));
+						Projection.class, "readNode"));
 		assertEquals(1, methodParameterNames.size());
-		assertEquals("bar", methodParameterNames.get(0));
+		assertEquals("node", methodParameterNames.get(0));
 	}
 
 	// @Test
