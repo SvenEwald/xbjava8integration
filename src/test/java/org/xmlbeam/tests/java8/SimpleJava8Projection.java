@@ -6,27 +6,34 @@ import java.util.List;
 import org.xmlbeam.annotation.XBRead;
 
 public interface SimpleJava8Projection {
-	
+
 	@XBRead("/root/somevalue")
 	String getSomeValue();
 
 	@XBRead("''{0}''")
 	int getInt(int i);
-	
+
+	@XBRead("''{0}''")
+	boolean getBoolean(boolean i);
+
 	default boolean validate() {
 		final String value = getSomeValue();
 		return "foo".equals(value);
 	}
 
-	default void noOperationMethod(List<String> strings) {
+	default void noOperationMethod(final List<String> strings) {
 		strings.add("bar");
 	}
 
 	default void throwSomething() throws IOException {
 		throw new IOException();
 	}
-	
-	default int passInt(int i) {		
+
+	default boolean passBoolean(final boolean i) {
+		return getBoolean(i);
+	}
+
+	default int passInt(final int i) {
 		return getInt(i);
 	}
 }
