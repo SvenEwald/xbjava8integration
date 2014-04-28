@@ -10,10 +10,10 @@ public interface SimpleJava8Projection {
 	@XBRead("/root/somevalue")
 	String getSomeValue();
 
-	@XBRead("''{0}''")
+	@XBRead("'{0}'")
 	int getInt(int i);
 
-	@XBRead("''{0}''")
+	@XBRead("'{0}'")
 	boolean getBoolean(boolean i);
 
 	default boolean validate() {
