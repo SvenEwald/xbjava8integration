@@ -19,7 +19,7 @@
 package org.xmlbeam.tests.java8;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class TestAutoVariableResolver {
 
 	@Test
 	public void testGetMethodParameterNames() {
-		assertTrue(ReflectionHelper.mayProvideParameterNames());
+		assumeTrue(ReflectionHelper.mayProvideParameterNames());
 		List<String> methodParameterNames = ReflectionHelper
 				.getMethodParameterNames(ReflectionHelper.findMethodByName(
 						Projection.class, "readNode"));
@@ -62,6 +62,8 @@ public class TestAutoVariableResolver {
 
 	@Test
 	public void test2() {
+
+		assumeTrue(ReflectionHelper.mayProvideParameterNames());
 		Projection projection = new XBProjector().projectXMLString(
 				"<foo><a>1</a><b>2</b></foo>", Projection.class);
 		assertEquals("1", projection.readNode("a"));
@@ -70,6 +72,7 @@ public class TestAutoVariableResolver {
 
 	@Test
 	public void testMultipleParams() {
+		assumeTrue(ReflectionHelper.mayProvideParameterNames());
 		Projection projection = new XBProjector().projectXMLString(
 				"<foo><a>1</a><b>2</b></foo>", Projection.class);
 		assertEquals("1", projection.readMultipleParams("foo", "a"));
