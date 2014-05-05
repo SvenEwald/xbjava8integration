@@ -18,7 +18,9 @@
  ************************************************************************/
 package org.xmlbeam.tests.java8;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
 import java.util.List;
@@ -42,8 +44,10 @@ public class TestAutoVariableResolver {
 	}
 
 	@Test
-	public void testGetMethodParameterNames() {
+	public void testGetMethodParameterNames() throws Exception {
 		assumeTrue(ReflectionHelper.mayProvideParameterNames());
+		assumeThat(Projection.class.getMethod("readNode", String.class)
+				.getParameters()[0].getName(), is("node"));
 		List<String> methodParameterNames = ReflectionHelper
 				.getMethodParameterNames(ReflectionHelper.findMethodByName(
 						Projection.class, "readNode"));
@@ -61,9 +65,11 @@ public class TestAutoVariableResolver {
 	// }
 
 	@Test
-	public void test2() {
+	public void test2() throws Exception {
 
 		assumeTrue(ReflectionHelper.mayProvideParameterNames());
+		assumeThat(Projection.class.getMethod("readNode", String.class)
+				.getParameters()[0].getName(), is("node"));
 		Projection projection = new XBProjector().projectXMLString(
 				"<foo><a>1</a><b>2</b></foo>", Projection.class);
 		assertEquals("1", projection.readNode("a"));
@@ -71,8 +77,10 @@ public class TestAutoVariableResolver {
 	}
 
 	@Test
-	public void testMultipleParams() {
+	public void testMultipleParams() throws Exception {
 		assumeTrue(ReflectionHelper.mayProvideParameterNames());
+		assumeThat(Projection.class.getMethod("readNode", String.class)
+				.getParameters()[0].getName(), is("node"));
 		Projection projection = new XBProjector().projectXMLString(
 				"<foo><a>1</a><b>2</b></foo>", Projection.class);
 		assertEquals("1", projection.readMultipleParams("foo", "a"));
