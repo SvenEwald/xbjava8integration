@@ -38,6 +38,7 @@ public class TestSupplierInterfaceAsParam {
 
 		String result = new XBProjector()
 				.projectEmptyDocument(Projection.class).getSomeValue(supplier);
+
 		assertEquals(supplier.get(), result);
 	}
 
