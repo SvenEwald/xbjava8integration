@@ -52,7 +52,7 @@ public class TestAutoVariableResolver {
 				.getMethodParameterIndexes(ReflectionHelper.findMethodByName(
 						Projection.class, "readNode"));
 		assertEquals(1, methodParameterNames.size());
-		assertEquals("node", methodParameterNames.keySet().iterator().next());
+		assertEquals("NODE", methodParameterNames.keySet().iterator().next());
 	}
 
 	// @Test
