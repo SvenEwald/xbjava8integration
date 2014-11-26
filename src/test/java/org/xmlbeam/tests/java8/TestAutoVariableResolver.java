@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
-import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.xmlbeam.XBProjector;
@@ -48,11 +48,11 @@ public class TestAutoVariableResolver {
 		assumeTrue(ReflectionHelper.mayProvideParameterNames());
 		assumeThat(Projection.class.getMethod("readNode", String.class)
 				.getParameters()[0].getName(), is("node"));
-		List<String> methodParameterNames = ReflectionHelper
-				.getMethodParameterNames(ReflectionHelper.findMethodByName(
+		Map<String, Integer> methodParameterNames = ReflectionHelper
+				.getMethodParameterIndexes(ReflectionHelper.findMethodByName(
 						Projection.class, "readNode"));
 		assertEquals(1, methodParameterNames.size());
-		assertEquals("node", methodParameterNames.get(0));
+		assertEquals("node", methodParameterNames.keySet().iterator().next());
 	}
 
 	// @Test
