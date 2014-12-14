@@ -14,11 +14,9 @@ public class TestJava8Projections {
 
 	private final static String XML = "<root><somevalue>foo</somevalue></root>";
 
-	final SimpleJava8Projection simpleProjection = new XBProjector()
-			.projectXMLString(XML, SimpleJava8Projection.class);
+	final SimpleJava8Projection simpleProjection = new XBProjector().projectXMLString(XML, SimpleJava8Projection.class);
 
-	final ExtendedJava8Projection extendedProjection = new XBProjector()
-			.projectXMLString(XML, ExtendedJava8Projection.class);
+	final ExtendedJava8Projection extendedProjection = new XBProjector().projectXMLString(XML, ExtendedJava8Projection.class);
 
 	@Test
 	public void testSimpleDefaultMethodInvocation() {
@@ -57,4 +55,8 @@ public class TestJava8Projections {
 		assertEquals(12, simpleProjection.passInt(12));
 	}
 
+	@Test
+	public void testToString() {
+		assertEquals("foobar", simpleProjection.toString());
+	}
 }

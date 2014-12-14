@@ -3,6 +3,7 @@ package org.xmlbeam.tests.java8;
 import java.io.IOException;
 import java.util.List;
 
+import org.xmlbeam.annotation.XBOverride;
 import org.xmlbeam.annotation.XBRead;
 
 public interface SimpleJava8Projection {
@@ -35,5 +36,10 @@ public interface SimpleJava8Projection {
 
 	default int passInt(final int i) {
 		return getInt(i);
+	}
+
+	@XBOverride("toString")
+	default String toString_() {
+		return "foobar";
 	}
 }
