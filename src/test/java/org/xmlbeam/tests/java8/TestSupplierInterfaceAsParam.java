@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlbeam.XBProjector;
 import org.xmlbeam.XBProjector.Flags;
@@ -42,7 +43,7 @@ public class TestSupplierInterfaceAsParam {
 		assertEquals(supplier.get(), result);
 	}
 
-	@Test
+	@Ignore //Maybe not so good idea
 	public void testUnwrappInCollection() {
 		List<Supplier<String>> collection = Arrays.asList(
 				new Supplier<String>() {

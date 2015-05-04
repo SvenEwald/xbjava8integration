@@ -20,71 +20,71 @@ package org.xmlbeam.tests.java8;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
-import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.junit.Test;
 import org.xmlbeam.XBProjector;
+import org.xmlbeam.XBProjector.Flags;
 import org.xmlbeam.annotation.XBRead;
+import org.xmlbeam.annotation.XBWrite;
+import org.xmlbeam.config.DefaultXMLFactoriesConfig;
 import org.xmlbeam.util.intern.ReflectionHelper;
 
 public class TestAutoVariableResolver {
 
-	public interface Projection {
-		// @XBRead("$bar")
-		// String read(String bar);
+    public interface Projection {
+        @XBRead("/foo/{node}")
+        String readNode(String node);
 
-		@XBRead("/foo/{node}")
-		String readNode(String node);
+        @XBRead("/{first}/{second}")
+        String readMultipleParams(String first, String second);
 
-		@XBRead("/{first}/{second}")
-		String readMultipleParams(String first, String second);
-	}
+        @XBWrite("/foo/bar[@id=$id(:000:)]")
+        Projection writeWithFormat(int id);
 
-	@Test
-	public void testGetMethodParameterNames() throws Exception {
-		assumeTrue(ReflectionHelper.mayProvideParameterNames());
-		assumeThat(Projection.class.getMethod("readNode", String.class)
-				.getParameters()[0].getName(), is("node"));
-		List<String> methodParameterNames = ReflectionHelper
-				.getMethodParameterNames(ReflectionHelper.findMethodByName(
-						Projection.class, "readNode"));
-		assertEquals(1, methodParameterNames.size());
-		assertEquals("node", methodParameterNames.get(0));
-	}
+        @XBRead("/foo/bar[@id=$id(:000:)]")
+        int readWithFormat(int id);
+    }
 
-	// @Test
-	// public void testSingleParam() {
-	// //Projection.class.getMethods()[0].getParameters()[0].getName()
-	// Projection projection = new
-	// XBProjector().projectXMLString("<foo><a>1</a><b>2</b></foo>",
-	// Projection.class);
-	// assertEquals("a",projection.read("a"));
-	// }
+    @Test
+    public void testFormatwithVariableBound() {
+        XBProjector xbProjector = new XBProjector(Flags.TO_STRING_RENDERS_XML);
+        xbProjector.config().as(DefaultXMLFactoriesConfig.class).setPrettyPrinting(false);
+        Projection projection = xbProjector.projectEmptyDocument(Projection.class);
+        assertEquals("<foo><bar id=\"004\">4</bar></foo>",projection.writeWithFormat(4).toString());
+        assertEquals(4,projection.readWithFormat(4));
+    }
 
-	@Test
-	public void test2() throws Exception {
+    @Test
+    public void testGetMethodParameterNames() throws Exception {
+        assumeTrue(ReflectionHelper.mayProvideParameterNames());
+        assumeThat(Projection.class.getMethod("readNode", String.class).getParameters()[0].getName(), is("node"));
+        Map<String, Integer> map = ReflectionHelper.getMethodParameterIndexes(ReflectionHelper.findMethodByName(Projection.class, "readNode"));
+        assertEquals(1, map.size());
+        assertTrue(map.containsKey("node".toUpperCase(Locale.ENGLISH)));
+    }
 
-		assumeTrue(ReflectionHelper.mayProvideParameterNames());
-		assumeThat(Projection.class.getMethod("readNode", String.class)
-				.getParameters()[0].getName(), is("node"));
-		Projection projection = new XBProjector().projectXMLString(
-				"<foo><a>1</a><b>2</b></foo>", Projection.class);
-		assertEquals("1", projection.readNode("a"));
-		assertEquals("2", projection.readNode("b"));
-	}
+    @Test
+    public void test2() throws Exception {
+        assumeTrue(ReflectionHelper.mayProvideParameterNames());
+        assumeThat(Projection.class.getMethod("readNode", String.class).getParameters()[0].getName(), is("node"));
+        Projection projection = new XBProjector().projectXMLString("<foo><a>1</a><b>2</b></foo>", Projection.class);
+        assertEquals("1", projection.readNode("a"));
+        assertEquals("2", projection.readNode("b"));
+    }
 
-	@Test
-	public void testMultipleParams() throws Exception {
-		assumeTrue(ReflectionHelper.mayProvideParameterNames());
-		assumeThat(Projection.class.getMethod("readNode", String.class)
-				.getParameters()[0].getName(), is("node"));
-		Projection projection = new XBProjector().projectXMLString(
-				"<foo><a>1</a><b>2</b></foo>", Projection.class);
-		assertEquals("1", projection.readMultipleParams("foo", "a"));
-		assertEquals("2", projection.readMultipleParams("foo", "b"));
-	}
+    @Test
+    public void testMultipleParams() throws Exception {
+        assumeTrue(ReflectionHelper.mayProvideParameterNames());
+        assumeThat(Projection.class.getMethod("readNode", String.class).getParameters()[0].getName(), is("node"));
+        Projection projection = new XBProjector().projectXMLString("<foo><a>1</a><b>2</b></foo>", Projection.class);
+        assertEquals("1", projection.readMultipleParams("foo", "a"));
+        assertEquals("2", projection.readMultipleParams("foo", "b"));
+    }
 
 }

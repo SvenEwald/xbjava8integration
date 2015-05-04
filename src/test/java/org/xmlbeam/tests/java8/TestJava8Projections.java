@@ -56,5 +56,15 @@ public class TestJava8Projections {
 	public void testPassInt() {
 		assertEquals(12, simpleProjection.passInt(12));
 	}
+	
+	@Test
+	public void testDefaultMethodUsingLambda() {
+	    assertEquals("Huhu",simpleProjection.defaultMethodUsingLambda().get());
+	}
 
+	@Test
+	public void testWrapResultInStream() {
+	    assertEquals(1,simpleProjection.getValuesAsStream().count());
+	    assertEquals("foo",simpleProjection.getValuesAsStream().findFirst().get());
+	}
 }
