@@ -42,7 +42,7 @@ public class TestSupplierInterfaceAsParam {
 		assertEquals(supplier.get(), result);
 	}
 
-	@Ignore
+	@Ignore //Maybe not so good idea
 	public void testUnwrappInCollection() {
 		List<Supplier<String>> collection = Arrays.asList(new Supplier<String>() {
 
