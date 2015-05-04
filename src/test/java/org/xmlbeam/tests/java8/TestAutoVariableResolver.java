@@ -18,15 +18,6 @@
  ************************************************************************/
 package org.xmlbeam.tests.java8;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeThat;
-import static org.junit.Assume.assumeTrue;
-
-import java.util.Locale;
-import java.util.Map;
-
 import org.junit.Test;
 import org.xmlbeam.XBProjector;
 import org.xmlbeam.XBProjector.Flags;
@@ -34,6 +25,15 @@ import org.xmlbeam.annotation.XBRead;
 import org.xmlbeam.annotation.XBWrite;
 import org.xmlbeam.config.DefaultXMLFactoriesConfig;
 import org.xmlbeam.util.intern.ReflectionHelper;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
+//github.com/SvenEwald/xbjava8integration.git
+import java.util.Locale;
+import java.util.Map;
 
 public class TestAutoVariableResolver {
 

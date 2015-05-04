@@ -37,42 +37,38 @@ public class TestSupplierInterfaceAsParam {
 			}
 		};
 
-		String result = new XBProjector()
-				.projectEmptyDocument(Projection.class).getSomeValue(supplier);
+		String result = new XBProjector().projectEmptyDocument(Projection.class).getSomeValue(supplier);
 
 		assertEquals(supplier.get(), result);
 	}
 
 	@Ignore //Maybe not so good idea
 	public void testUnwrappInCollection() {
-		List<Supplier<String>> collection = Arrays.asList(
-				new Supplier<String>() {
+		List<Supplier<String>> collection = Arrays.asList(new Supplier<String>() {
 
-					@Override
-					public String get() {
-						return "A";
-					}
+			@Override
+			public String get() {
+				return "A";
+			}
 
-				}, new Supplier<String>() {
+		}, new Supplier<String>() {
 
-					@Override
-					public String get() {
-						return "B";
-					}
+			@Override
+			public String get() {
+				return "B";
+			}
 
-				}, new Supplier<String>() {
+		}, new Supplier<String>() {
 
-					@Override
-					public String get() {
-						return "C";
-					}
+			@Override
+			public String get() {
+				return "C";
+			}
 
-				});
+		});
 
-		Projection projection = new XBProjector(Flags.TO_STRING_RENDERS_XML)
-				.projectEmptyDocument(Projection.class);
-		final String[] result = projection.setSomeValues(collection)
-				.checkValues();
+		Projection projection = new XBProjector(Flags.TO_STRING_RENDERS_XML).projectEmptyDocument(Projection.class);
+		final String[] result = projection.setSomeValues(collection).checkValues();
 		assertEquals("A", result[0]);
 		assertEquals("B", result[1]);
 		assertEquals("C", result[2]);

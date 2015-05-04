@@ -45,4 +45,9 @@ public interface SimpleJava8Projection {
 	
 	@XBRead("/root/somevalue")
 	Stream<String> getValuesAsStream();
+
+	@XBOverride("toString")
+	default String toString_() {
+		return "foobar";
+	}
 }
