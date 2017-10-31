@@ -10,7 +10,7 @@
 		<dependency>
 			<groupId>org.xmlbeam</groupId>
 			<artifactId>xmlprojector</artifactId>
-			<version>1.4.7-SNAPSHOT</version>
+			<version>1.4.14</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
